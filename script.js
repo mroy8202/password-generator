@@ -16,15 +16,22 @@ let passwordLength = 10;
 let checkCount = 0;
 handleSlider();
 // set strength circle to grey
+setIndicator("#ccc");
 
 // set password length
 function handleSlider() {
     inputSlider.value = passwordLength;
     lengthDisplay.innerText = passwordLength;
+
+    // this will fill color in slider till only where slider thumb is present
+    // const min = inputSlider.min;
+    // const max = inputSlider.max;
+    // inputSlider.style.backgroundSize = ( (passwordLength - min) * 100 / (max - min) ) + "% 100%"
 }
 
 function setIndicator(color) {
-    indicator.getElementsByClassName.backgroundColor = color;
+    indicator.style.backgroundColor = color;
+    indicator.style.boxShadow = `0px 0px 12px 1px ${color}`;
 }
 
 function getRandomInteger(min, max) {
@@ -94,19 +101,22 @@ async function copyContent() {
 function shufflePassword(array) {
     // Fisher Yates Method
     for (let i = array.length - 1; i > 0; i--) {
+        // random j, find out using random function
         const j = Math.floor(Math.random() * (i + 1));
+
+        // swap number at i index and j index
         const temp = array[i];
         array[i] = array[j];
         array[j] = temp;
-      }
+    }
     let str = "";
     array.forEach((el) => (str += el));
     return str;
 }
 
 // event listeners
-inputSlider.addEventListener('input', (event) => {
-    passwordLength = event.target.value;
+inputSlider.addEventListener('input', (e) => {
+    passwordLength = e.target.value;
     handleSlider();
 });
 
